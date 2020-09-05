@@ -8,7 +8,7 @@
 
 using System;
 
-namespace Sakura.Core.Event
+namespace Event
 {
     [AttributeUsage(AttributeTargets.Class |
                     AttributeTargets.Constructor |
@@ -19,14 +19,42 @@ namespace Sakura.Core.Event
         AllowMultiple = true)]
     public class Subscribe : Attribute
     {
-        public Subscribe()
-        {
+        public readonly ThreadMode threadMode = ThreadMode.DEFAULT;
 
+        public Subscribe() {}
+
+        public Subscribe(ThreadMode threadMode)
+        {
+            this.threadMode = threadMode;
         }
 
         ~Subscribe()
         {
             Console.WriteLine("Subscribe Deinit");
+        }
+    }
+
+    /// <summary>
+    /// Class using to store info of subscriber.
+    /// </summary>
+    public struct Subscription
+    {
+        public object Subscriber => subscriber.Target;
+        public Type SubscribeType => subscribeType;
+        public Subscribe Subscribe => subscribe;
+        public Delegate Handler => handler;
+
+        private WeakReference subscriber;
+        private Type subscribeType;
+        private Subscribe subscribe;
+        private Delegate handler;
+
+        public Subscription(object subscriber, Type subscribeType, Subscribe subscribe, Delegate handler)
+        {
+            this.subscriber = new WeakReference(subscriber);
+            this.subscribeType = subscribeType;
+            this.subscribe = subscribe;
+            this.handler = handler;
         }
     }
 }

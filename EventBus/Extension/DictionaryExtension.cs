@@ -8,7 +8,7 @@
 
 using System.Collections.Generic;
 
-namespace EventBus.Extension
+namespace Event
 {
     internal static class DictionaryExtension
     {

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace EventBus.Extension
+namespace Event
 {
     internal static class MethodInfoExtension
     {
