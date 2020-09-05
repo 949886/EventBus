@@ -33,7 +33,7 @@ private void HandleEventAsync(ShootMessage message)
 
 public void Update()
 {
-    // Triger event.
+    // Trigger event.
     EventBus.Default.Post(new ShootMessage(/*args*/));
 }
 ```
