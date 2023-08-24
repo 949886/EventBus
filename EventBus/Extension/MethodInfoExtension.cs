@@ -1,4 +1,4 @@
-﻿//
+//
 //  MethodInfoExtension.cs
 //  EventBus
 //
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Event
+namespace Luna.Core.Event
 {
     internal static class MethodInfoExtension
     {

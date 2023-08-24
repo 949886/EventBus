@@ -36,5 +36,17 @@ public void Update()
     // Trigger event.
     EventBus.Default.Post(new ShootMessage(/*args*/));
 }
+
+[Subscribe(ThreadMode.BACKGROUND)]
+private void HandleEventAsync(ShootMessage message)
+{
+    /* do something when shooting */
+}
+
+public void Update()
+{
+    // Triger event.
+    EventBus.Default.Post(new ShootMessage(/*args*/));
+}
 ```
 

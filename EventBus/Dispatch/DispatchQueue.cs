@@ -1,4 +1,4 @@
-﻿//
+//
 //  DispatchQueue.cs
 //  VupSystem
 //
@@ -6,19 +6,20 @@
 //  Copyright © 2019 LunarEclipse. All rights reserved.
 //
 
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-#if UNITY_EDITOR
+#if UNITY
 using UnityEngine;
 #endif
 
-namespace Event
+namespace Luna.Core.Dispatch
 {
     public class DispatchQueue
-#if UNITY_EDITOR
+#if UNITY
         : MonoBehaviour
 #endif
     {
@@ -58,7 +59,7 @@ namespace Event
             }
         }
 
-#if UNITY_EDITOR
+#if UNITY
         /// <summary>
         /// Initialize main queue before scene load.
         /// </summary>
@@ -74,7 +75,7 @@ namespace Event
         }
 #endif
 
-        #endregion
+#endregion
 
         private readonly Queue<Action> executionQueue = new Queue<Action>();
 
@@ -94,13 +95,10 @@ namespace Event
             {
                 lock (executionQueue)
                 {
-#if UNITY_EDITOR
-                    executionQueue.Enqueue(() => {
-                        StartCoroutine(ActionWrapper(action));
-                    });
-#else
+                    //executionQueue.Enqueue(() => {
+                    //    StartCoroutine(ActionWrapper(action));
+                    //});
                     executionQueue.Enqueue(action);
-#endif
                 }
             }
 
@@ -123,31 +121,27 @@ namespace Event
             {
                 lock (executionQueue)
                 {
-#if UNITY_EDITOR
-                    executionQueue.Enqueue(() => {
-                        StartCoroutine(DelayedActionWrapper((float)delay, action));
-                    });
-#else
+                    //executionQueue.Enqueue(() =>
+                    //{
+                    //    StartCoroutine(DelayedActionWrapper((float)delay, action));
+                    //});
                     executionQueue.Enqueue(action);
-#endif
                 }
             }
         }
 
-#if UNITY_EDITOR
-        IEnumerator ActionWrapper(Action action)
-        {
-            action();
-            yield return null;
-        }
+        //IEnumerator ActionWrapper(Action action)
+        //{
+        //    action();
+        //    yield return null;
+        //}
 
-        IEnumerator DelayedActionWrapper(float delay, Action action)
-        {
-            yield return new WaitForSeconds(delay / 1000);
-            action();
-            yield return null;
-        }
-#endif
+        //IEnumerator DelayedActionWrapper(float delay, Action action)
+        //{
+        //    yield return new WaitForSeconds(delay / 1000);
+        //    action();
+        //    yield return null;
+        //}
 
         /// <summary>
         /// In unity, this method will run as override method within unity script lifecycle.
@@ -164,7 +158,7 @@ namespace Event
             }
         }
 
-        #region Enumeration
+#region Enumeration
 
         private enum ThreadMode
         {
@@ -178,7 +172,7 @@ namespace Event
             Concurrent   // Execute concurrently.
         }
 
-        #endregion
+#endregion
 
     }
 }

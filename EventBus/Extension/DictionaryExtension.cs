@@ -1,4 +1,4 @@
-﻿//
+//
 //  DictionaryExtension.cs
 //  EventBus
 //
@@ -8,7 +8,7 @@
 
 using System.Collections.Generic;
 
-namespace Event
+namespace Luna.Core.Event
 {
     internal static class DictionaryExtension
     {
